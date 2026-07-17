@@ -20,3 +20,5 @@ next.txt
 *.ipynb
 test.py
 graphs
+executer_agent.py
+visualizer_agent.py
