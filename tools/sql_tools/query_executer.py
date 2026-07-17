@@ -19,4 +19,4 @@ def query_executer(queries : list[str]) -> str:
             response = response + f"QUERY: {query} \n ERROR: {e}"
     return response
 
-query_executer_tool = [query_executer]
+query_executer_tool = query_executer
