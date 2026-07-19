@@ -2,7 +2,7 @@ from typing import Literal
 from state import analyst_state
 from langchain.chat_models import init_chat_model
 from pydantic import BaseModel,Field
-from langchain_core.messages import HumanMessage,SystemMessage
+from langchain_core.messages import HumanMessage,SystemMessage,AIMessage
 
 sys_prompt = """
 # identity : 
@@ -42,4 +42,4 @@ supervisor_llm = llm.with_structured_output(desicion_schema)
 def supervisor_agent(state : analyst_state):
     convo = state.get('messages','')
     response = supervisor_llm.invoke([SystemMessage(sys_prompt)] + convo)
-    return {"next" : f"{response.next}", "request" : f"{response.request}","messages" : f"{[response]}","active_agent" : f"{response.next}"}
+    return {"next" : f"{response.next}", "request" : f"{response.request}","messages" : AIMessage(f"Routing to : {response.next} = {response.request}"),"active_agent" : f"{response.next}"}

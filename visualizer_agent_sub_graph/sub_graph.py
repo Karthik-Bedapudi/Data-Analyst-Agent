@@ -12,17 +12,6 @@ from langchain.messages import HumanMessage,AIMessage
 from uuid import uuid4
 memory = MemorySaver()
 
-# @tool
-# def data_visualizer(code:str,name:str) -> str:
-#     """
-#             this is a python code executor used to execute data visuslizing.
-            
-#             ARGS : 
-#                     code : str (description: python code for visualizing data)
-#                     name : str(description: name of the graph image, name should be like a description of the graph-code. example: age_distribution_histogram)
-#             """
-            
-    # return "graph created successfully"
 def sub_graph_router(state : visualize_state):
     last_msg = state["messages"][-1]
     if last_msg.tool_calls:
@@ -55,5 +44,5 @@ def bridge_visualize_graph(state: analyst_state):
     if response.tool_calls and response.tool_calls[0]["name"] == "transfer_back_to_supervisor":
         print("hi")
         final_response = response.tool_calls[0]["args"]["final_response"]
-        return {"messages" : AIMessage(final_response),"active_agent" : None}
+        return {"messages" : AIMessage(content = f"{final_response}"),"active_agent" : None}
     return {"messages" : response}
